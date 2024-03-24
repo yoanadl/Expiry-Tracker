@@ -65,7 +65,7 @@ public class UserAccount {
 
     // Login Validation
     public UserAccount validateLogin(String username, String password) {
-        String query = "SELECT username, pwd, f_name, l_name, email WHERE username = ? AND password = ?";
+        String query = "SELECT username, pwd, fullname, email, phone FROM user WHERE username = ? AND pwd = ?";
         try {
             conn = new Config().getConnection();
             PreparedStatement preparedStatement = conn.prepareStatement(query);
@@ -74,11 +74,11 @@ public class UserAccount {
             ResultSet resultSet = preparedStatement.executeQuery();
 
             if(resultSet.next()) {
-                String fName = resultSet.getString("f_name");
-                String lName = resultSet.getString("l_name");
+                String fullName = resultSet.getString("fullName");
                 String email = resultSet.getString("email");
+                String phone = resultSet.getString("phone");
 
-                return new UserAccount(username, password, fName, lName, email);
+                return new UserAccount(username, fullName, password, email, phone);
             } else {
                 return null;
             }
