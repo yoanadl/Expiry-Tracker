@@ -98,11 +98,6 @@ public class UserAccount {
         }
     }
 
-
-}
-
-
-
     // Create
     public boolean insertAccount(UserAccount newUser) {
         try {
