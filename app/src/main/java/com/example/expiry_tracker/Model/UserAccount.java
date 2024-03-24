@@ -65,7 +65,7 @@ public class UserAccount {
 
     // Login Validation
     public UserAccount validateLogin(String username, String password) {
-        String query = "SELECT username, password, f_name, l_name, email WHERE username = ? AND password = ?";
+        String query = "SELECT username, pwd, f_name, l_name, email WHERE username = ? AND password = ?";
         try {
             conn = new Config().getConnection();
             PreparedStatement preparedStatement = conn.prepareStatement(query);
