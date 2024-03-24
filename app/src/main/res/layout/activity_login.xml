@@ -10,6 +10,7 @@
     android:orientation="vertical"
     android:padding="24dp"
     tools:context=".MainActivity">
+
     <!--TextView2 widget inside ViewGroup1-->
     <TextView
         style="@style/TextAppearance.MaterialComponents.Headline6"
