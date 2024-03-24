@@ -29,6 +29,17 @@
         tools:context=".MainActivity">
         <!--TextView2 widget inside ViewGroup1-->
         <TextView
+            android:id="@+id/loginConfirmationTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:textColor="@android:color/black"
+            android:textSize="16sp"
+            android:layout_marginTop="16dp"
+            android:visibility="gone"
+            app:layout_constraintTop_toBottomOf="@+id/submitButton" />
+
+        <TextView
             style="@style/TextAppearance.MaterialComponents.Headline6"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -63,6 +74,7 @@
 
             <!--Button widget inside ViewGroup2-->
             <Button
+                android:id="@+id/submitButton"
                 android:onClick="login"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
