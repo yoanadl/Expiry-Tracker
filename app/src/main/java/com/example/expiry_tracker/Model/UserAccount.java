@@ -7,26 +7,26 @@ import java.util.ArrayList;
 public class UserAccount {
     private Connection conn;
     private String username;
+    private String fullName;
     private String password;
-    private String firstName;
-    private String lastName;
     private String email;
+    private String phone;
 
 
     public UserAccount() {
         this.username = "";
+        this.fullName = "";
         this.password = "";
-        this.firstName = "";
-        this.lastName = "";
         this.email = "";
+        this.phone = "";
     }
 
-    public UserAccount(String username, String password, String firstName, String lastName, String email) {
+    public UserAccount(String username, String fullName, String password, String email, String phone) {
         this.username = username;
+        this.fullName = fullName;
         this.password = password;
-        this.firstName = firstName;
-        this.lastName = lastName;
         this.email = email;
+        this.phone = phone;
     }
 
 
@@ -34,50 +34,38 @@ public class UserAccount {
         return username;
     }
 
+    public String getFullName() { return fullName; }
+
     public String getPassword() {
         return password;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public String getFullName() {
-        return String.format("%s %s", getFirstName(), getLastName());
     }
 
     public String getEmail() {
         return email;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
-    }
+    public String getPhone() { return phone; }
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
+    public void setUsername(String username) { this.username = username; }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
+    public void setPassword(String password) { this.password = password; }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
     }
 
     public void setEmail(String email) {
         this.email = email;
     }
 
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
 
     // Login Validation
     public UserAccount validateLogin(String username, String password) {
-        String query = "SELECT username, password, f_name, l_name, email WHERE username = ? AND password = ?";
+        String query = "SELECT username, pwd, f_name, l_name, email WHERE username = ? AND password = ?";
         try {
             conn = new Config().getConnection();
             PreparedStatement preparedStatement = conn.prepareStatement(query);
@@ -110,49 +98,46 @@ public class UserAccount {
         }
     }
 
+    // Create
+    public boolean insertAccount(UserAccount newUser) {
+        try {
+            conn = new Config().getConnection();
 
+            String query = "SELECT * FROM user WHERE username = ?";
+            PreparedStatement preparedStatement = conn.prepareStatement(query);
+            preparedStatement.setString(1, newUser.getUsername());
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            if (resultSet.next()){
+                return false;
+            }else{
+                query = "INSERT INTO user (username, fullname, pwd, email, phone) VALUES (?, ?, ?, ?, ?)";
+                preparedStatement = conn.prepareStatement(query);
+                preparedStatement.setString(1, newUser.getUsername());
+                preparedStatement.setString(2, newUser.getPassword());
+                preparedStatement.setString(3, newUser.getFullName());
+                preparedStatement.setString(4, newUser.getEmail());
+                preparedStatement.setString(5, newUser.getPhone());
+
+                int rowsAffected = preparedStatement.executeUpdate();
+                return rowsAffected > 0;
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } finally {
+            // Close the connection in a finally block to ensure it happens even if an exception occurs.
+            try {
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+                // Handle the SQLException during closing.
+            }
+        }
+    }
 }
 
-
-
-//    // Create
-//    public boolean insertAccount(UserAccount newUser) {
-//        try {
-//            conn = new Config().getConnection();
-//
-//            String query = "SELECT * FROM user_account WHERE username = ?";
-//            PreparedStatement preparedStatement = conn.prepareStatement(query);
-//            preparedStatement.setString(1, newUser.getUsername());
-//            ResultSet resultSet = preparedStatement.executeQuery();
-//
-//            if (resultSet.next()){
-//                return false;
-//            }else{
-//                query = "INSERT INTO user_account (username, password, f_name, l_name, email, max_slot, profile_id, role_id, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
-//                preparedStatement = conn.prepareStatement(query);
-//                preparedStatement.setString(1, newUser.getUsername());
-//                preparedStatement.setString(2, newUser.getPassword());
-//                preparedStatement.setString(3, newUser.getFirstName());
-//                preparedStatement.setString(4, newUser.getLastName());
-//                preparedStatement.setString(5, newUser.getEmail());
-//
-//                int rowsAffected = preparedStatement.executeUpdate();
-//                return rowsAffected > 0;
-//            }
-//        } catch (SQLException e) {
-//            throw new RuntimeException(e);
-//        } finally {
-//            // Close the connection in a finally block to ensure it happens even if an exception occurs.
-//            try {
-//                if (conn != null) {
-//                    conn.close();
-//                }
-//            } catch (SQLException e) {
-//                e.printStackTrace();
-//                // Handle the SQLException during closing.
-//            }
-//        }
-//    }
 //
 //    // Read (View)
 //    public ArrayList<UserAccount> selectAll() {
