@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
+
 import java.sql.Connection;
 public class MainActivity extends AppCompatActivity {
 
@@ -32,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
         TextView t = findViewById(R.id.editText1);
         String input = t.getText().toString();
 
-        Log.d("info", input);
+        System.out.println(input);
+
     }
 }
