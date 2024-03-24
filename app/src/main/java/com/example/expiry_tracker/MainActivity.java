@@ -7,7 +7,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+
+import android.util.Log;
 import android.view.View;
+import android.widget.TextView;
+
 import java.sql.Connection;
 public class MainActivity extends AppCompatActivity {
 
@@ -24,7 +28,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void login(View v){
-        //Implement cek UserID
-        //
+        TextView t = findViewById(R.id.editText1);
+        String input = t.getText().toString();
+
+        Log.d("info", input);
     }
 }
