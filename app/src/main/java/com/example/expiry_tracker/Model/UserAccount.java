@@ -1,4 +1,6 @@
 package com.example.expiry_tracker.Model;
+import android.util.Log;
+
 import com.example.expiry_tracker.Config.Config;
 
 import java.sql.*;
@@ -65,27 +67,43 @@ public class UserAccount {
 
     // Login Validation
     public UserAccount validateLogin(String username, String password) {
-        String query = "SELECT username, pwd, fullname, email, phone FROM user WHERE username = ? AND pwd = ?";
+        String query = "SELECT * FROM user WHERE username = ? AND pwd = ?";
+
         try {
             conn = new Config().getConnection();
+
+            Log.d("infoffff", query);
+            Log.d("infoffff", "Nando");
             PreparedStatement preparedStatement = conn.prepareStatement(query);
+            Log.d("infoffff", "KAZEMARU");
             preparedStatement.setString(1, username);
             preparedStatement.setString(2, password);
+            Log.d("infoffff", "KAKA");
             ResultSet resultSet = preparedStatement.executeQuery();
-
+            Log.d("infoffff", "OKOK1");
             if(resultSet.next()) {
+                Log.d("infoffff", "OKOK2");
                 String fullName = resultSet.getString("fullName");
                 String email = resultSet.getString("email");
                 String phone = resultSet.getString("phone");
 
                 return new UserAccount(username, fullName, password, email, phone);
             } else {
+                Log.d("infoffff", "OKOKADDA");
                 return null;
             }
         } catch (SQLException e) {
             e.printStackTrace();
+            Log.d("infoffff", e.getMessage());
+            Log.d("infoffff", "got Error");
             return null;
-        } finally {
+        } catch(Exception e){
+
+            Log.d("infoffff", e.getMessage());
+            Log.d("infoffff", "got Error");
+            return null;
+        }
+        finally {
             // Close the connection in a finally block to ensure it happens even if an exception occurs.
             try {
                 if (conn != null) {
@@ -95,6 +113,7 @@ public class UserAccount {
                 e.printStackTrace();
                 // Handle the SQLException during closing.
             }
+
         }
     }
 
