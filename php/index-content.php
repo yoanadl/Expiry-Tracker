@@ -20,7 +20,7 @@
         <?php else: ?>
         
             <div class="button-container" style="margin-top: 20px;">
-            <a href="register.html" style="text-decoration: none;">
+            <a href="register.php" style="text-decoration: none;">
                 <button style="padding: 10px 20px; font-size: 18px;">Register</button>
             </a>
             </div>
