@@ -1,0 +1,46 @@
+<!-- login.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <style>
+        .bigBox{
+            background-color: lightgray;
+            color: black;
+            padding: 20px;
+            border-radius: 10px;
+            width: 300px;
+            margin: 0 auto; /* Center the box horizontally */
+            margin-top: 40px; 
+        }
+        h2{
+            text-align: center;
+            margin-top:100px;
+            margin-bottom: 20px;
+            font-size: 20pt;
+        }
+
+        
+    </style>
+</head>
+<body>
+    <h2>Log In</h2>
+    <form action="login.php" method="post">
+        <div class = "bigBox" style = "text-align: center;">
+        <table>
+            <td>Gambar</td>
+            <td>
+                <input type="text" id="username" name="username" placeholder="Username" required  style = "border-radius: 5px;"><br><br>
+                <input type="password" id="pwd" name="pwd" placeholder="Password"  required style = "border-radius: 5px;"><br><br>
+                <input type="submit" value="Log in">
+            </td>
+        </table>
+        </div>
+        
+       
+    </form>
+
+</body>
+</html>
